@@ -1,0 +1,51 @@
+﻿<Window x:Class="SamplePlayer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SamplePlayer"
+        xmlns:xceed="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:controls="clr-namespace:SamplePlayer.Controls"
+        mc:Ignorable="d"
+        Title="Sample Player"
+        Height="450"
+        Width="800">
+    <Window.DataContext>
+        <local:MainWindowViewModel />
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48" />
+            <RowDefinition Height="371*" />
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="697*" />
+                <ColumnDefinition Width="95*" />
+            </Grid.ColumnDefinitions>
+            <xceed:WatermarkTextBox Watermark="Root"
+                                    Text="{Binding Root}"
+                                    VerticalAlignment="Top"
+                                    HorizontalAlignment="Stretch"
+                                    Margin="10" />
+            <Button Grid.Column="1"
+                    Margin="10,10,10,0"
+                    Content="..."
+                    Command="{Binding SelectRootCommand}"
+                    Height="24"
+                    VerticalAlignment="Top" />
+        </Grid>
+        <ListView Margin="10"
+                  SelectedItem="{Binding CurrentSample, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                  ItemsSource="{Binding SampleControls, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                  Grid.Row="1">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <controls:SampleControl DataContext="{Binding}"
+                                            Margin="2"
+                                            Height="23" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Window>

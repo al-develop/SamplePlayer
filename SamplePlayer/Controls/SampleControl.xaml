@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="SamplePlayer.Controls.SampleControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:SamplePlayer.Controls"
+             mc:Ignorable="d"
+             Height="30"
+             Width="710">
+    <TextBlock Foreground="Gray"
+               MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"
+               Text="{Binding ShortFilePath, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+               Grid.Column="1" />
+    <!--<Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="237*" />
+            <ColumnDefinition Width="473*" />
+        </Grid.ColumnDefinitions>
+        <Button Command="{Binding PlaySampleCommand}"
+                Content="{Binding SampleName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                Margin="0,0,7,0" />
+        <TextBlock
+                 Foreground="Gray"
+                 Background="WhiteSmoke"
+                 MinWidth="150"
+                 Margin="8,0,0,0"
+                 Text="{Binding ShortFilePath, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                 Grid.Column="1" />
+    </Grid>-->
+</UserControl>
