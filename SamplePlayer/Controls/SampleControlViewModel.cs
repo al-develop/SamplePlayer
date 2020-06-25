@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 using DevExpress.Mvvm;
 
@@ -27,6 +23,12 @@ namespace SamplePlayer.Controls
             get { return _sampleName; }
             set { SetProperty(ref _sampleName, value, () => SampleName); }
         }
+
+        internal void StopPlayback()
+        {
+            mediaPlayer.Stop();
+        }
+
         public string FileSource
         {
             get { return _fileSource; }
@@ -44,7 +46,7 @@ namespace SamplePlayer.Controls
         {
             if (String.IsNullOrEmpty(FileSource))
                 return;
-
+                        
             mediaPlayer.Open(new Uri(FileSource));
             mediaPlayer.Play();
         }

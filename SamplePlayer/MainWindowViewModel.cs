@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DevExpress.Mvvm;
 using SamplePlayer.Controls;
 
@@ -20,8 +17,18 @@ namespace SamplePlayer
         public SampleControlViewModel CurrentSample
         {
             get { return _currentSample; }
-            set { SetProperty(ref _currentSample, value, () => CurrentSample); CurrentSample.PlaySample(); }
+            set
+            {
+                if (CurrentSample != null)
+                    CurrentSample.StopPlayback();
+
+                SetProperty(ref _currentSample, value, () => CurrentSample);
+
+                if (CurrentSample != null)
+                    CurrentSample.PlaySample();
+            }
         }
+
         public ObservableCollection<SampleControlViewModel> SampleControls
         {
             get { return _sampleControls; }
@@ -35,11 +42,20 @@ namespace SamplePlayer
 
         public Func<string> SelectRootFunction { get; set; }
         public DelegateCommand SelectRootCommand { get; set; }
+        public DelegateCommand EnterPressedCommand { get; set; }
+        public DelegateCommand StopPlaybackCommand { get; set; }
 
         public MainWindowViewModel()
         {
             SelectRootCommand = new DelegateCommand(SelectRoot);
             SampleControls = new ObservableCollection<SampleControlViewModel>();
+            EnterPressedCommand = new DelegateCommand(LoadControls);
+            StopPlaybackCommand = new DelegateCommand(StopPlayback);
+        }
+
+        private void StopPlayback()
+        {
+            CurrentSample.StopPlayback();
         }
 
         private void SelectRoot()
